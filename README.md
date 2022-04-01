@@ -4,4 +4,4 @@
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-yellow.svg?style=flat-square
 
 This is a simple python app to export all of your extensions in Visual Studio Code and generate a shell script to install them.
-"# vscode-dynamic-extension-loader" 
+To generate the shell file run the `app.py` file.
