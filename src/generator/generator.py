@@ -45,3 +45,48 @@ exit'''
   file.close()
   
   return True
+
+def generate_powershell_file(author_name: str, save_path: str, extensions: dict, save_name: str = "vscode-extension-installer") -> bool:
+  file_content = f'''Write-Host -ForegroundColor Blue "Welcome to the extension installer!"
+Write-Host -ForegroundColor Blue "You've got the extensions from {author_name}."
+Write-Host -ForegroundColor Blue "You can install only all extensions or none of them."
+$reply = Read-Host -Prompt "Do you want to install all extensions? (y/n) "
+if ($reply -match "[nN]") {{
+  Write-Host -ForegroundColor Red "You decided to install none of them."
+  $reply = Read-Host -Prompt  "Press enter to close this window..."
+  exit
+}}
+'''
+
+  for extension in extensions:
+    file_content += f'''code --install-extension {extensions[extension]['author']}.{extensions[extension]['name']}@{extensions[extension]['version']} \n'''
+  
+  file_content += f'''Write-Host -ForegroundColor Green "All extensions from {author_name} have been installed!"
+$reply = Read-Host -Prompt "Press enter to close this window..."
+exit'''
+
+  if not isdir(save_path):
+    print("The path you entered is not a directory.")
+    return False
+  
+  if not save_path.endswith('\\'):
+    save_path += '\\'
+    
+  if save_name.endswith('.ps1'):
+    save_name.removesuffix('.ps1')
+  
+  if exists(save_path + save_name + '.ps1'):
+    number = 1
+    new_save_name = save_name
+    while exists(save_path + new_save_name + '.ps1'):
+      new_save_name = save_name + "_" + str(number)
+      number += 1
+    save_name += new_save_name
+  
+  save_name += '.ps1'
+  
+  file = open(save_path + save_name, 'w')
+  file.write(file_content)
+  file.close()
+  
+  return True
