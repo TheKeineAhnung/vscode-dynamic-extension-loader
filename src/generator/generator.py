@@ -1,6 +1,6 @@
 from os.path import isdir, exists
 
-def generate_file(author_name: str, save_path: str, extensions: dict, save_name: str = "vscode-extension-installer") -> bool:
+def generate_shell_file(author_name: str, save_path: str, extensions: dict, save_name: str = "vscode-extension-installer") -> bool:
   file_content = f'''#!/bin/bash
 echo "$(tput setaf 6)Welcome to the extension installer!"
 echo "You've got the extensions from {author_name}."

@@ -1,4 +1,4 @@
-from generator.generator import generate_file
+from generator.generator import generate_shell_file
 from generator.get_extensions import get_own_extentions
 
 print("Welcome to the vscode dynamic extension loader!")
@@ -29,9 +29,9 @@ if check_extensions.lower().strip() == "y":
 generated_file = False
 
 if (save_name.strip() == ""):
-  generated_file = generate_file(author_name=author, save_path=save_path, extensions=extensions)
+  generated_file = generate_shell_file(author_name=author, save_path=save_path, extensions=extensions)
 else:
-  generated_file = generate_file(author_name=author, save_path=save_path, extensions=extensions, save_name=save_name)
+  generated_file = generate_shell_file(author_name=author, save_path=save_path, extensions=extensions, save_name=save_name)
 
 if generated_file:
   print("File was successfully generated.")
